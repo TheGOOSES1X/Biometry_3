@@ -328,11 +328,13 @@ num_etalons_entry = tk.Entry(root)
 num_etalons_entry.pack()
 
 # Кнопка для подтверждения ввода
-plot_button = tk.Button(root, text="Построить графики", command=get_num_etalons)
+plot_button = tk.Button(root, text="Запуск", command=get_num_etalons)
 plot_button.pack()
 
 # Кнопка для произвольной выборки
-plot_button = tk.Button(root, text="Произвести произвольную выборку", command=choose_test)
+num_etalons_label = tk.Label(root, text="Произвольная выборка")
+num_etalons_label.pack()
+plot_button = tk.Button(root, text="Выбрать файлы", command=choose_test)
 plot_button.pack()
 
 # Запуск цикла обработки событий
