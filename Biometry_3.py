@@ -70,7 +70,7 @@ def Build_Charts_func(num_e, start_pos, step, end_pos, ch_func):
     stat_hist_indv = []
     stat_grad_indv = []
     #лимиты
-    delta_k_h = 230
+    delta_k_h = 200
     delta_k_g = 80
     #для тестов
     t_img_a = []
@@ -264,8 +264,10 @@ def Build_Charts_func(num_e, start_pos, step, end_pos, ch_func):
     x_r_scale_ind = np.arange(len(stat_scale_indv_n))
     #показ фигур
     fig1.set_size_inches(18, 6)
+    fig1.subplots_adjust(hspace=0.5)
     fig1.show()
     fig2.set_size_inches(18, 6)
+    fig2.subplots_adjust(hspace=0.5)
     fig2.show()
     #поиск числа подпапок
     num_subfolders = len([f.path for f in os.scandir("ORL") if f.is_dir()])
@@ -273,14 +275,20 @@ def Build_Charts_func(num_e, start_pos, step, end_pos, ch_func):
     for t in range(0, num_subfolders, 1):
         axH.plot(x_r_h[0:t+1:1], stat_hist[0:t+1:1], color="green")
         axH.set_title('Гистограмма')
+        axH.set_xlabel('Класс')
+        axH.set_ylabel('Процентная точность по классу')
         axG.plot(x_r_g[0:t+1:1], stat_grad[0:t+1:1], color="green")
         axG.set_title('Градиент')
+        axG.set_xlabel('Класс')
         axDFT.plot(x_r_dft[0:t+1:1], stat_dft[0:t+1:1], color="green")
         axDFT.set_title('DFT')
+        axDFT.set_xlabel('Класс')
         axDCT.plot(x_r_dct[0:t+1:1], stat_dct[0:t+1:1], color="green")
         axDCT.set_title('DCT')
+        axDCT.set_xlabel('Класс')
         axScale.plot(x_r_scale[0:t+1:1], stat_scale[0:t+1:1], color="green")
         axScale.set_title('Scale')
+        axScale.set_xlabel('Класс')
         index = 0
         for p in range(0 + num_e * t, num_e * t + num_e, 1):
             i_a_e.set_data(e_img_a[p])
@@ -297,6 +305,9 @@ def Build_Charts_func(num_e, start_pos, step, end_pos, ch_func):
                 dc_a.set_data(t_dct[m])
                 g_a.set_ydata(t_grad[m])
                 sc_a.set_data(t_scale[m])
+                stat_dft_indv = np.round(stat_dft_indv, decimals=3)
+                stat_dct_indv = np.round(stat_dct_indv, decimals=3)
+                stat_scale_indv = np.round(stat_scale_indv, decimals=3)
                 ax_2.set_title(f'Гистограмма:{stat_hist_indv[m]}')
                 ax_3.set_title(f'DFT:{stat_dft_indv[m]}')
                 ax_4.set_title(f'DCT:{stat_dct_indv[m]}')
@@ -307,14 +318,20 @@ def Build_Charts_func(num_e, start_pos, step, end_pos, ch_func):
                     put = index + t*(num_files - num_e)+1
                     axIndH.plot(x_r_h_ind[0:put:1], stat_hist_indv_n[0:put:1], color="green")
                     axIndH.set_title('Гистограмма')
+                    axIndH.set_xlabel('Номер теста')
+                    axIndH.set_ylabel('Процентная точность по тесту')
                     axIndG.plot(x_r_g_ind[0:put:1], stat_grad_indv_n[0:put:1], color="green")
                     axIndG.set_title('Градиент')
+                    axIndG.set_xlabel('Номер теста')
                     axIndDFT.plot(x_r_dft_ind[0:put:1], stat_dft_indv_n[0:put:1], color="green")
                     axIndDFT.set_title('DFT')
+                    axIndDFT.set_xlabel('Номер теста')
                     axIndDCT.plot(x_r_dct_ind[0:put:1], stat_dct_indv_n[0:put:1], color="green")
                     axIndDCT.set_title('DCT')
+                    axIndDCT.set_xlabel('Номер теста')
                     axIndScale.plot(x_r_scale_ind[0:put:1], stat_scale_indv_n[0:put:1], color="green")
                     axIndScale.set_title('Scale')
+                    axIndScale.set_xlabel('Номер теста')
                     index += 1
                 #отрисовка фигур
                 fig1.canvas.draw()
